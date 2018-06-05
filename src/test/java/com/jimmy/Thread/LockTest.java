@@ -8,7 +8,7 @@ public class LockTest {
 
 	private int sum = 0;
 	//一定要将lock声明为成员变量，如果在方法中声明并创建lock，则不能起到锁的效果	
-	Lock lock = new ReentrantLock();
+	ReentrantLock lock = new ReentrantLock();
 	
 	public void insert(Thread thread){
 		lock.lock();
@@ -69,6 +69,7 @@ public class LockTest {
 	public void testLockInterruptibly(Thread thread) throws InterruptedException{
 		//如果将lock.lockInterruptibly();放在try{}内，finally{}中的lock.unlock()则会报异常
 		lock.lockInterruptibly();
+		System.out.println("当前线程" + thread.getName() + "是否获取了锁：" + lock.isHeldByCurrentThread());
 		try {
 			System.out.println("time=" + System.currentTimeMillis() + ",线程" + thread.getName() + "拿到锁了……");
 			long now = System.currentTimeMillis();
@@ -143,6 +144,9 @@ public class LockTest {
 		};
 		threadA.start();
 		threadB.start();
+		
+		System.out.println("当前线程名：" + Thread.currentThread().getName());
+		
 		try {
 			Thread.sleep(3000);
 		} catch (Exception e) {
