@@ -65,6 +65,25 @@ public class LockTest {
 		}
 	}
 	
+	//测试带参数的tryLock方法
+	public void testLockInterruptibly(Thread thread) throws InterruptedException{
+		//如果将lock.lockInterruptibly();放在try{}内，finally{}中的lock.unlock()则会报异常
+		lock.lockInterruptibly();
+		try {
+			System.out.println("time=" + System.currentTimeMillis() + ",线程" + thread.getName() + "拿到锁了……");
+			long now = System.currentTimeMillis();
+			while(System.currentTimeMillis() - now < 6000){
+				//空方法，耗时操作
+				//Thread.sleep()方法也会抛出InterruptedException异常
+			}
+		} finally{
+			lock.unlock();
+			System.out.println("线程" + thread.getName() + "释放了锁……");
+		}
+	}
+		
+	
+	
 	public static void main(String[] args){
 		
 		final LockTest test = new LockTest();
@@ -100,13 +119,13 @@ public class LockTest {
 		}
 		th2.interrupt();	*/
 		
-		/************不用第三方类封装测试testTryLockArgs(Thread thread)方法***********/
-		/*
+		/************不用第三方类封装测试testTryLockArgs(Thread thread)方法和testLockInterruptibly(Thread thread)方法***********/
+		
 		Thread threadA = new Thread("A"){
 			@Override
 			public void run(){
 				try {
-					test.testTryLockArgs(Thread.currentThread());
+					test.testLockInterruptibly(Thread.currentThread());
 				} catch (InterruptedException e) {
 					System.err.println("time=" + System.currentTimeMillis() + ",线程" + Thread.currentThread().getName() + "被中断…………");
 				}
@@ -116,7 +135,7 @@ public class LockTest {
 			@Override
 			public void run(){
 				try {
-					test.testTryLockArgs(Thread.currentThread());
+					test.testLockInterruptibly(Thread.currentThread());
 				} catch (InterruptedException e) {
 					System.err.println("time=" + System.currentTimeMillis() + ",线程" + Thread.currentThread().getName() + "被中断…………");
 				}
@@ -129,7 +148,7 @@ public class LockTest {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		threadB.interrupt();	*/
+		threadB.interrupt();	
 	}
 	
 }
