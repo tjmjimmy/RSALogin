@@ -67,7 +67,7 @@ public class LockTest {
 	
 	public static void main(String[] args){
 		
-		LockTest test = new LockTest();
+		final LockTest test = new LockTest();
 		/* 测试insert()方法和testTryLock(Threadthread)方法
 		Thread threadA = new Thread("A"){
 			@Override
