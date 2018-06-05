@@ -85,37 +85,71 @@ public class LockTest {
 			}
 		};
 		threadA.start();
-		threadB.start();*/
+		threadB.start();	*/
 		
 		/*****************测试testTryLockArgs(Thread thread)方法*******************/
-		Thread th1 = new Thread("AA"){
-			@Override
-			public void run(){
-				try {
-					test.testTryLockArgs(Thread.currentThread());
-				} catch (InterruptedException e) {
-					System.out.println("time=" + System.currentTimeMillis() + ",线程" + Thread.currentThread().getName() + "被中断了……");
-				}
-			}
-		};
-		Thread th2 = new Thread("BB"){
-			@Override
-			public void run(){
-				try {
-					test.testTryLockArgs(Thread.currentThread());
-				} catch (InterruptedException e) {
-					System.out.println("time=" + System.currentTimeMillis() + ",线程" + Thread.currentThread().getName() + "被中断了……");
-				}
-			}
-		};
+		/*
+		MyThread th1 = new MyThread(test, "AA");
+		MyThread th2 = new MyThread(test, "BB");
 		th1.start();
 		th2.start();
 		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Thread.sleep(3000);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
-		th2.interrupt();
+		th2.interrupt();	*/
+		
+		/************不用第三方类封装测试testTryLockArgs(Thread thread)方法***********/
+		/*
+		Thread threadA = new Thread("A"){
+			@Override
+			public void run(){
+				try {
+					test.testTryLockArgs(Thread.currentThread());
+				} catch (InterruptedException e) {
+					System.err.println("time=" + System.currentTimeMillis() + ",线程" + Thread.currentThread().getName() + "被中断…………");
+				}
+			}
+		};		
+		Thread threadB = new Thread("B"){
+			@Override
+			public void run(){
+				try {
+					test.testTryLockArgs(Thread.currentThread());
+				} catch (InterruptedException e) {
+					System.err.println("time=" + System.currentTimeMillis() + ",线程" + Thread.currentThread().getName() + "被中断…………");
+				}
+			}
+		};
+		threadA.start();
+		threadB.start();
+		try {
+			Thread.sleep(3000);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		threadB.interrupt();	*/
+	}
+	
+}
+
+class MyThread extends Thread{
+	
+	private LockTest test = new LockTest();
+	
+	MyThread(LockTest test, String name){
+		super(name);
+		this.test = test;
+	}
+	
+	@Override
+	public void run(){
+		try {
+			test.testTryLockArgs(Thread.currentThread());
+		} catch (InterruptedException e) {
+			System.err.println("time=" + System.currentTimeMillis() + ",线程" + Thread.currentThread().getName() + "被中断…………");
+		}
 	}
 }
+
