@@ -93,7 +93,15 @@ public class CollectionTest {
 	 */
 	@Test
 	public void test2(){
-		
+		/*
+		Iterator<String> it = strList.iterator();
+		while(it.hasNext()){
+			String temp = it.next();
+			if(temp.contains("b")){
+				it.remove();
+			}
+		}
+		*/
 		for(Iterator<String> ite = strList.iterator(); ite.hasNext();){
 			String str = ite.next();
 			if(str.contains("b")){
