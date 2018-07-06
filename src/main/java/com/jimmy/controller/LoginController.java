@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.util.concurrent.RateLimiter;
 import com.jimmy.utils.RSAUtils;
 
 import java.io.File;
@@ -21,6 +22,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -32,8 +34,19 @@ public class LoginController {
 	
 	Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
+	private static RateLimiter rateLimiter = RateLimiter.create(10.0, 20, TimeUnit.SECONDS);
+	
 	@RequestMapping("/login")
 	public String login(Model model, HttpServletRequest request, HttpServletResponse response){
+		
+		synchronized (this) {
+			if(rateLimiter.tryAcquire()){
+				/**
+				 * 需要执行的具体操作
+				 * */
+			}
+		}
+		
 		// 将公钥的 modulus 和 exponent 传给页面。
 		// Hex -> apache commons-codec
 		RSAPublicKey publicKey = RSAUtils.getDefaultPublicKey();//默认公钥

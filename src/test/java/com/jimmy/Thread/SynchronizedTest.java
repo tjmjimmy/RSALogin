@@ -97,20 +97,20 @@ class Print{
 			System.out.println(Thread.currentThread().getName() + ">>>sum=" + sum);
 		}
 	}
-	
+
+	/**
+	 * 在synchronized()中new Object()并不能实现synchronized效果，因为在不同线程中调用该方法，synchronized()锁住的是不同的对象，都是新new出来的
+	 * synchronized()中必须是成员变量
+	 * 将下行该为synchronized(o)，输出结果就不一样
+	 * */
+	/**
+	 * 在new temp()构造方法中，虽然使用了静态成员变量，但synchronized(new temp())加的是temp的对象锁，不是temp类锁，所以也不会造成阻塞
+	 * */
+	/**
+	 * 如果synchronized(o)，再用不同线程执行printArray()和synchronizedPrint()也不会实现synchronized的效果，
+	 * 因为printArray()方法锁住的是o对象，synchronizedPrint()方法锁住的是this对象
+	 * */
 	void printArray(){
-		/**
-		 * 在synchronized()中new Object()并不能实现synchronized效果，因为在不同线程中调用该方法，synchronized()锁住的是不同的对象，都是新new出来的
-		 * synchronized()中必须是成员变量
-		 * 将下行该为synchronized(o)，输出结果就不一样
-		 * */
-		/**
-		 * 在new temp()构造方法中，虽然使用了静态成员变量，但synchronized(new temp())加的是temp的对象锁，不是temp类锁，所以也不会造成阻塞
-		 * */
-		/**
-		 * 如果synchronized(o)，再用不同线程执行printArray()和synchronizedPrint()也不会实现synchronized的效果，
-		 * 因为printArray()方法锁住的是o对象，synchronizedPrint()方法锁住的是this对象
-		 * */
 		synchronized(this){
 			int sum = 0;
 			for(int i = 0; i < 100; i++){

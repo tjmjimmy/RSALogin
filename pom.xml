@@ -189,6 +189,20 @@
 		<artifactId>log4j-over-slf4j</artifactId>
 		<version>${log4j-over_version}</version>
 	</dependency> -->
+	
+	<!-- google -->
+	<!-- 同时引入google-collections和guava，在使用Platform时会起冲突 -->
+	<!-- <dependency>
+	    <groupId>com.google.collections</groupId>
+	    <artifactId>google-collections</artifactId>
+	    <version>1.0</version>
+	</dependency> -->
+	<dependency>
+	    <groupId>com.google.guava</groupId>
+	    <artifactId>guava</artifactId>
+	    <version>19.0</version>
+	</dependency>
+	
   </dependencies>
   <build>
     <finalName>RSALogin</finalName>
