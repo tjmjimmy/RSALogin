@@ -9,20 +9,7 @@ public class VolatileTest {
 	}
 	
 	synchronized void synchronizedIncrement(){
-		/**
-		 * 下面这条语句包含3个操作
-		 * 1、从主内存获取inc的值复制到线程本地内存；
-		 * 2、修改线程本地内存inc的值；
-		 * 3、由于使用了volatile关键字修饰，会立即将修改后的值刷新到主内存
-		 * */
-//		inc++;
-		
-		/**
-		 * 拆成三步
-		 * */
-		int temp = getInc();
-		temp++;
-		setInc(temp);
+		inc++;
 	}
 	
 	public static void main(String[] args){
