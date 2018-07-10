@@ -38,6 +38,7 @@ public class VolatileTest {
 			new Thread(){
 				public void run(){
 					for(int i = 0; i < 1000; i++){
+						//将increment()方法内部拆成3步，结果依然不符合预期
 						test.increment();
 					}
 				}
