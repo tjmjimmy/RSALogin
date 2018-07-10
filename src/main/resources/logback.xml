@@ -14,7 +14,7 @@
         	<immediateFlush>true</immediateFlush><!-- If you immediately empty the output stream, setting it to false improves performance, but the log can be lost -->
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%t] [%level] [%class:%line] - %m%n</pattern>
         </encoder>
-        <!-- 定义只输出该级别以上的日志 -->
+        <!-- 定义只输出该级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
             <onMatch>ACCEPT</onMatch>
