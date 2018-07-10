@@ -5,7 +5,19 @@ public class VolatileTest {
 	private volatile int inc = 0;
 	
 	void increment(){
+		/**
+		 * 这里其实有三个原子操作
+		 * 1、从主内存获取inc的值复制到当前线程的本地内存
+		 * 2、修改inc的值
+		 * 3、将修改后的inc的值更新到主内存
+		 * */		
 		inc++;
+		
+		//拆成三步
+		/*int temp = getInc();
+		temp++;
+		setInc(temp);
+		*/
 	}
 	
 	synchronized void synchronizedIncrement(){
