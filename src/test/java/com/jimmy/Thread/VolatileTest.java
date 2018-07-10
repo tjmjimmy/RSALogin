@@ -5,20 +5,7 @@ public class VolatileTest {
 	private volatile int inc = 0;
 	
 	void increment(){
-		/**
-		 * 下面这条语句包含3个操作
-		 * 1、从主内存获取inc的值复制到线程本地内存；
-		 * 2、修改线程本地内存inc的值；
-		 * 3、由于使用了volatile关键字修饰，会立即将修改后的值刷新到主内存
-		 * */
-//		inc++;
-		
-		/**
-		 * 拆成三步
-		 * */
-		int temp = getInc();
-		temp++;
-		setInc(temp);
+		inc++;
 	}
 	
 	synchronized void synchronizedIncrement(){
@@ -33,12 +20,11 @@ public class VolatileTest {
 		 * 当两个线程同时获取inc的值时，线程A先获取了inc的值，但还没有进行操作，这时线程B也获取inc的值，则线程A，B获取到的值是一样的，然后都进行自加操作，
 		 * 表面上对inc进行了两次操作，但实际效果只自加了1次 。
 		 * */
-		
+		/*
 		for(int num = 0; num < 10; num++){
 			new Thread(){
 				public void run(){
 					for(int i = 0; i < 1000; i++){
-						//将increment()方法内部拆成3步，结果依然不符合预期
 						test.increment();
 					}
 				}
@@ -49,12 +35,12 @@ public class VolatileTest {
 			
 		}
 		System.out.println("inc=" + test.getInc());
-		
+		*/
 		
 		/**
 		 * synchronized能保证操作的原子性，间接保证操作的可见性，因为同一时刻只有一个线程操作共享变量
 		 * */
-		/*for(int num = 0; num < 10; num++){
+		for(int num = 0; num < 10; num++){
 			new Thread(){
 				public void run(){
 					for(int i = 0; i < 1000; i++){
@@ -68,7 +54,7 @@ public class VolatileTest {
 			
 		}
 		System.out.println("inc=" + test.getInc());
-		*/
+		
 	}
 
 	public int getInc() {
