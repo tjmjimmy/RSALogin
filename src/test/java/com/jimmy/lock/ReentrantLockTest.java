@@ -2,6 +2,12 @@ package com.jimmy.lock;
 
 import java.util.concurrent.locks.ReentrantLock;
 
+
+/**
+ * @description 重入锁测试
+ * @author tjm_Jimmy
+ *
+ */
 public class ReentrantLockTest {
 
 	private ReentrantLock lock = new ReentrantLock();
