@@ -9,6 +9,7 @@ public class TestInitializingBean implements InitializingBean{
 	public void afterPropertiesSet() throws Exception {
 		System.out.println("test InitializingBean!");
 		
+		System.out.println("bean实例化完成！");
 	}
 
 }
