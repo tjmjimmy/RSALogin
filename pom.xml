@@ -258,12 +258,27 @@
 	<dependency>  
 	    <groupId>mysql</groupId>  
 	    <artifactId>mysql-connector-java</artifactId>  
-	    <version>5.1.25</version>  
+	    <version>5.1.32</version>  
 	</dependency>  
 	<dependency>  
 	    <groupId>com.alibaba</groupId>  
 	    <artifactId>druid</artifactId>  
-	    <version>1.0.26</version>  
+	    <version>1.0.26</version>
+	    <exclusions>
+			<exclusion>
+				<groupId>com.alibaba</groupId>
+				<artifactId>jconsole</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>com.alibaba</groupId>
+				<artifactId>tools</artifactId>
+			</exclusion>
+		</exclusions>  
+	</dependency>
+	<dependency>
+	    <groupId>com.sun.xml.bind</groupId>
+	    <artifactId>jaxb-impl</artifactId>
+	    <version>2.2.6</version>
 	</dependency>
 	
   </dependencies>
