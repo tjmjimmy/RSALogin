@@ -3,6 +3,8 @@ package com.jimmy.shiro.chapter2;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.codec.Base64;
+import org.apache.shiro.codec.Hex;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
@@ -62,5 +64,20 @@ public class LoginLogoutTest {
 		Assert.assertEquals(true, subject.isAuthenticated());
 		logger.info("校验成功");
 		subject.logout();
+	}
+	
+	@Test
+	public void testCodec(){
+		String str = "hello world";
+		String encodeToString = Base64.encodeToString(str.getBytes());
+		logger.info("Base64加密之后的字符串" + encodeToString);
+		String toString = Base64.decodeToString(encodeToString);
+		logger.info("Base64解密之后的字符串" + toString);
+		
+		logger.info("=========================================");
+		String encodeHex = Hex.encodeToString(str.getBytes());
+		logger.info("Hex加密之后的字符串" + encodeHex);
+		String sourceStr = new String(Hex.decode(encodeHex.getBytes()));
+		logger.info("Hex解密之后的字符串" + sourceStr);
 	}
 }
