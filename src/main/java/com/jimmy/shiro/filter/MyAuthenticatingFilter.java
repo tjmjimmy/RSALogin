@@ -17,12 +17,21 @@ public class MyAuthenticatingFilter extends AuthenticatingFilter {
         return createToken(username, password, request, response);
 	}
 
+	/**
+	 * 表示访问拒绝时是否自己处理，
+	 * 如果返回true表示自己不处理且继续拦截器链执行，
+	 * 返回false表示自己已经处理了（比如重定向到另一个页面）
+	 */
 	@Override
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
+	
+	/**
+	 * 是否允许访问，返回true表示允许
+	 */
 	@Override  
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {  
         // 如果是登录操作，直接拦截不通过；shiro的实现是，如果用户登录过，再登录时，由于isAuthenticated为true，则直接不拦截，又跳转到登录页面去了。  
